@@ -2,7 +2,7 @@ import { Router } from "express";
 import { validateBody } from "../../middlewares/body.middleware";
 import { checkExistance } from "../../middlewares/check-existance.middleware";
 import { responseHandler } from "../../middlewares/response.middleware";
-import { CategoryController } from "../../controllers/group.controller";
+import { CategoryController } from "../../controllers/category.controller";
 import { GroupSchema } from "../../validators/group.validators";
 import { errorHandler } from "../../middlewares/error.middleware";
 import { authenticate } from "../../middlewares/auth.middleware";
