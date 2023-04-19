@@ -4,9 +4,9 @@ import { checkExistance } from "../../middlewares/check-existance.middleware";
 import { responseHandler } from "../../middlewares/response.middleware";
 import { RecipeController } from "../../controllers/recipe.controller";
 import {
-  CreateSubTaskSchema,
-  EditSubTaskSchema,
-} from "../../validators/sub-task.validator";
+  CreateRecipeSchema,
+  EditRecipeSchema,
+} from "../../validators/recipe.validator";
 import { errorHandler } from "../../middlewares/error.middleware";
 import { authenticate } from "../../middlewares/auth.middleware";
 import { RecipeService } from "../../services/recipe.service";
@@ -24,7 +24,7 @@ recipeRouter.get(
 recipeRouter.post(
   "",
 
-  validateBody(CreateSubTaskSchema),
+  validateBody(CreateRecipeSchema),
   responseHandler(RecipeController.create),
   errorHandler
 );
@@ -39,7 +39,7 @@ recipeRouter.get(
 );
 recipeRouter.put(
   "/:id",
-  validateBody(EditSubTaskSchema),
+  validateBody(EditRecipeSchema),
   responseHandler(RecipeController.update),
   errorHandler
 );

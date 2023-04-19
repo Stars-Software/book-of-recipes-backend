@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { ProductController } from "../../controllers/product.controller";
 import {
-  CreateTodoSchema,
-  EditTodoSchema,
-} from "../../validators/todo.validators";
+  CreateProductSchema,
+  EditProductSchema,
+} from "../../validators/product.validators";
 import { validateBody } from "../../middlewares/body.middleware";
 import { checkExistance } from "../../middlewares/check-existance.middleware";
 import { IProductDBRecord } from "../../types/product.type";
@@ -19,7 +19,7 @@ productRouter.use("", authenticate);
 productRouter.get("", responseHandler(ProductController.getAll), errorHandler);
 productRouter.post(
   "",
-  validateBody(CreateTodoSchema),
+  validateBody(CreateProductSchema),
   responseHandler(ProductController.create)
 );
 productRouter.use(
@@ -33,7 +33,7 @@ productRouter.get(
 );
 productRouter.put(
   "/:id",
-  validateBody(EditTodoSchema),
+  validateBody(EditProductSchema),
   responseHandler(ProductController.update),
   errorHandler
 );

@@ -1,7 +1,7 @@
 import { Application } from 'express';
-import groupsRouter from './api/category.route';
-import subTasksRouter from './api/recipe.route';
-import todosRouter from './api/product.route';
+import categoryRouter from './api/category.route';
+import recipeRouter from './api/recipe.route';
+import productRouter from './api/product.route';
 import userRouter from './api/users.route';
 
 class AppRouter {
@@ -11,10 +11,10 @@ class AppRouter {
     this.app.get('/', (_req, res) => {
       res.send('API Running');
     });
-    this.app.use('/api/todos', todosRouter);
+    this.app.use('/api/products', productRouter);
     this.app.use('/api/user', userRouter);
-    this.app.use('/api/groups', groupsRouter);
-    this.app.use('/api/sub-tasks', subTasksRouter);
+    this.app.use('/api/categories', categoryRouter);
+    this.app.use('/api/recipes', recipeRouter);
   }
 }
 
