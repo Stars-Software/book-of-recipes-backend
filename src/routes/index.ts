@@ -11,10 +11,10 @@ class AppRouter {
     this.app.get('/', (_req, res) => {
       res.send('API Running');
     });
-    this.app.use('/api/products', productRouter);
-    this.app.use('/api/user', userRouter);
-    this.app.use('/api/categories', categoryRouter);
-    this.app.use('/api/recipes', recipeRouter);
+    this.app.use('/products', productRouter);
+    this.app.use('/user', userRouter);
+    this.app.use('/categories', categoryRouter);
+    this.app.use('/recipes', recipeRouter);
   }
 }
 

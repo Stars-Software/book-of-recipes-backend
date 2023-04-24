@@ -1,8 +1,8 @@
-import { PasswordUtil } from '../utils/password.util';
-import { IUserSignUp, IUserSignIn } from '../types/user.type';
-import { CustomError } from '../utils/error.util';
-import User from '../models/User';
-import { TokenService } from './token.service';
+import { PasswordUtil } from "../utils/password.util";
+import { IUserSignUp, IUserSignIn } from "../types/user.type";
+import { CustomError } from "../utils/error.util";
+import User from "../models/User";
+import { TokenService } from "./token.service";
 
 export default class UserService {
   static async signUp(user: IUserSignUp) {
@@ -16,7 +16,10 @@ export default class UserService {
   }
 
   static async getById(id: string) {
-    return await User.findOne({ where: { id } });
+    return await User.findOne({
+      where: { id },
+      include: [{ as: "avatar", model: Image }],
+    });
   }
 
   static async refresh(oldToken: string) {
@@ -28,7 +31,7 @@ export default class UserService {
     const user = await UserService.getByEmail(email);
 
     if (!user) {
-      throw new CustomError(404, 'Wrong email or password');
+      throw new CustomError(404, "Wrong email or password");
     }
 
     const { dataValues } = user;
@@ -38,7 +41,7 @@ export default class UserService {
     );
 
     if (!isPasswordEquals) {
-      throw new CustomError(404, 'Wrong email or password');
+      throw new CustomError(404, "Wrong email or password");
     }
 
     return await TokenService.create(dataValues.id);

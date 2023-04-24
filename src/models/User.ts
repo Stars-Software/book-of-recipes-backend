@@ -3,6 +3,7 @@ import Recipe from "./Recipe";
 import Category from "./Category";
 import Product from "./Product";
 import Token from "./Token";
+import Image from "./Image";
 const { DataTypes } = require("sequelize");
 
 const foreignKey = "userId";
@@ -16,7 +17,6 @@ const User = sequelize.define(
       primaryKey: true,
     },
     name: { type: DataTypes.STRING, allowNull: false },
-    avatar: { type: DataTypes.STRING, allowNull: false },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -32,8 +32,9 @@ const User = sequelize.define(
 );
 
 User.hasMany(Product, { as: "products", foreignKey });
-User.hasMany(Token, { as: "tokens", foreignKey });
+User.hasOne(Token, { as: "tokens", foreignKey });
 User.hasMany(Category, { as: "categories", foreignKey });
 User.hasMany(Recipe, { as: "recipes", foreignKey });
+User.hasOne(Image, { as: "images", foreignKey });
 
 export default User;
