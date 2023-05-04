@@ -1,6 +1,5 @@
 import { IRecipeProduct } from "../types/recipe.type";
 import { sequelize } from "../config/database";
-import Todo from "./Product";
 const { DataTypes } = require("sequelize");
 
 const Recipe = sequelize.define(
@@ -30,10 +29,5 @@ const Recipe = sequelize.define(
     timestamps: false,
   }
 );
-// check all instances
-Recipe.hasMany(Todo, {
-  as: "todos",
-  foreignKey: "RecipeId",
-});
 
 export default Recipe;

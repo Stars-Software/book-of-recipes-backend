@@ -6,9 +6,8 @@ import { checkEmailExistance } from "../../middlewares/check-acctount.middleware
 import { UserController } from "../../controllers/user.controller";
 import { errorHandler } from "../../middlewares/error.middleware";
 import { authenticate } from "../../middlewares/auth.middleware";
-const multer = require("multer");
+import { writeImage } from "../../middlewares/image.middleware";
 
-const upload = multer({ dest: "images/" });
 const userRouter: Router = Router();
 
 userRouter.post(
@@ -35,7 +34,7 @@ userRouter.get(
 
 userRouter.post(
   "/upload",
-  upload.single("file"),
+  writeImage,
   responseHandler(UserController.setImage),
   errorHandler
 );

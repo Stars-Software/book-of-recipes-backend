@@ -1,5 +1,4 @@
 import { sequelize } from "../config/database";
-import SubTask from "./Category";
 const { DataTypes } = require("sequelize");
 
 const Product = sequelize.define(
@@ -17,10 +16,5 @@ const Product = sequelize.define(
     timestamps: false,
   }
 );
-
-Product.hasMany(SubTask, {
-  as: "categories",
-  foreignKey: "categoryId",
-});
 
 export default Product;
