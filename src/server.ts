@@ -1,7 +1,7 @@
 import express from "express";
 import "dotenv/config";
 import AppRouter from "./routes";
-import connectDB from "./config/database";
+import connectDB from "./config/database/pool";
 import { applyPassportStrategy } from "./utils/passport.util";
 import { corsOptions } from "./config/corsOptions";
 const cookieParser = require("cookie-parser");

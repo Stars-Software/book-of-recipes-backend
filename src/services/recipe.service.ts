@@ -1,5 +1,5 @@
 import { IRecipe, IRecipeDBRecord } from "../types/recipe.type";
-import Recipe from "../models/Category";
+import Recipe from "../models/Product-Category";
 
 export class RecipeService {
   static async create(

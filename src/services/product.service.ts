@@ -1,4 +1,4 @@
-import Category from "../models/Category";
+import Category from "../models/Product-Category";
 import Product from "../models/Product";
 import { IProduct, IProductDBRecord } from "../types/product.type";
 

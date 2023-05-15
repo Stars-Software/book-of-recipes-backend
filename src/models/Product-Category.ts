@@ -1,11 +1,11 @@
-import { sequelize } from "../config/database";
+import { sequelize } from "../config/database/pool";
 import Product from "./Product";
 const { DataTypes } = require("sequelize");
 
 const foreignKey = "categoryId";
 
-const Category = sequelize.define(
-  "categories",
+const ProductCategory = sequelize.define(
+  "product_categories",
   {
     id: {
       type: DataTypes.UUID,
@@ -19,6 +19,6 @@ const Category = sequelize.define(
   }
 );
 
-Category.hasMany(Product, { as: "products", foreignKey });
+ProductCategory.hasMany(Product, { as: "products", foreignKey });
 
-export default Category;
+export default ProductCategory;

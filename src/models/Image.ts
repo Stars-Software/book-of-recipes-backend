@@ -1,4 +1,4 @@
-import { sequelize } from "../config/database";
+import { sequelize } from "../config/database/pool";
 const { DataTypes } = require("sequelize");
 
 const Image = sequelize.define(

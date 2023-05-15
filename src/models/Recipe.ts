@@ -1,5 +1,5 @@
 import { IRecipeProduct } from "../types/recipe.type";
-import { sequelize } from "../config/database";
+import { sequelize } from "../config/database/pool";
 const { DataTypes } = require("sequelize");
 
 const Recipe = sequelize.define(

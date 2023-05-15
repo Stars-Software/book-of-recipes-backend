@@ -1,6 +1,6 @@
-import { sequelize } from "../config/database";
+import { sequelize } from "../config/database/pool";
 import Recipe from "./Recipe";
-import Category from "./Category";
+import Category from "./Product-Category";
 import Product from "./Product";
 import Token from "./Token";
 import Image from "./Image";
