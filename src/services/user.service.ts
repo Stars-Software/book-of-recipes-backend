@@ -3,6 +3,7 @@ import { IUserSignUp, IUserSignIn } from "../types/user.type";
 import { CustomError } from "../utils/error.util";
 import User from "../models/User";
 import { TokenService } from "./token.service";
+import Image from "../models/Image";
 
 export default class UserService {
   static async signUp(user: IUserSignUp) {
@@ -19,6 +20,7 @@ export default class UserService {
     return await User.findOne({
       where: { id },
       include: [{ as: "avatar", model: Image }],
+      exclude: ["password"],
     });
   }
 

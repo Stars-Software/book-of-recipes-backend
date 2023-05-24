@@ -6,7 +6,7 @@ import { checkEmailExistance } from "../../middlewares/check-acctount.middleware
 import { UserController } from "../../controllers/user.controller";
 import { errorHandler } from "../../middlewares/error.middleware";
 import { authenticate } from "../../middlewares/auth.middleware";
-import { writeImage } from "../../middlewares/image.middleware";
+import { serveImage, writeImage } from "../../middlewares/image.middleware";
 
 const userRouter: Router = Router();
 
@@ -44,6 +44,8 @@ userRouter.get(
   responseHandler(UserController.getProfile),
   errorHandler
 );
+
+userRouter.use("/images", serveImage);
 
 userRouter.get("/logOut", responseHandler(UserController.logOut));
 

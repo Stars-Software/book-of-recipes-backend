@@ -1,5 +1,6 @@
 import { sequelize } from "../config/database/pool";
 import { readFileSync } from "fs";
+import { CustomError } from "./error.util";
 
 class DataBaseUtils {
   private tool: any;
@@ -19,10 +20,11 @@ class DataBaseUtils {
 
       console.log("Data inserted successfully.");
     } catch (error) {
-      console.error("Error inserting data:", error);
-    } finally {
-      this.tool.close();
+      throw new CustomError(500, "Something went wrong");
     }
+  }
+  async close() {
+    await this.tool.close();
   }
 }
 

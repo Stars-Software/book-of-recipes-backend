@@ -6,7 +6,8 @@ export default class ImageService {
     return await Image.findOne({ where: { userId } });
   }
   static async upload({ path }: any, userId: string) {
-    return await await Image.build({ path, userId }).save();
+    await imageUtils.compress(path);
+    return await Image.build({ path, userId }).save();
   }
   static async update({ path }: any, userId: string) {
     const prevUserImage = await this.get(userId);

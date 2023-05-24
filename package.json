@@ -50,7 +50,9 @@
     "typescript": "^4.9.5"
   },
   "scripts": {
-    "backend": "nodemon src/server.ts",
+    "seed-data": "npx ts-node src/seeders/dataSeeders",
+    "start": "nodemon src/server.ts",
+    "start-with-seed": "npm run seed-data && npm start",
     "test": "jest"
   }
 }
