@@ -24,6 +24,8 @@ userRouter.post(
   errorHandler
 );
 
+userRouter.get("/avatar/images/:file", serveImage, errorHandler);
+
 userRouter.use("/", authenticate);
 
 userRouter.get(
@@ -44,8 +46,6 @@ userRouter.get(
   responseHandler(UserController.getProfile),
   errorHandler
 );
-
-userRouter.use("/images", serveImage);
 
 userRouter.get("/logOut", responseHandler(UserController.logOut));
 

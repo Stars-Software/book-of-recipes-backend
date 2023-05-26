@@ -1,10 +1,11 @@
 import * as fs from "fs";
 import { CustomError } from "./error.util";
+import path from "path";
 const sharp = require("sharp");
 
 const options: ImageOptions = {
-  size: 300,
-  quality: 65,
+  size: 350,
+  quality: 75,
   format: "jpeg",
 };
 
@@ -25,19 +26,23 @@ class ImageUtils {
     this.options = options;
   }
 
-  async compress(path: string) {
+  async compress(filePath: string) {
     const { size, quality, format } = this.options;
-    await this.compressor(path)
+    const extension = path.extname(filePath);
+    console.log("FILEPATH", filePath)
+    const newPath = filePath.replace(extension, this.options.format);
+    console.log("NEWPATH", newPath)
+    await this.compressor(filePath)
       .resize(size)
       .toFormat(format)
       .jpeg({ quality })
-      .toBuffer();
+      .toFile(newPath);
   }
 
   delete(path: string) {
     this.fileHandler.unlink(path, (err: any) => {
       if (err) {
-        return new CustomError(500, "Storage error!");
+        throw new CustomError(500, "Storage error!");
       }
     });
   }

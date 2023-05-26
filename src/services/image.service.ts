@@ -5,13 +5,15 @@ export default class ImageService {
   static async get(userId: string) {
     return await Image.findOne({ where: { userId } });
   }
-  static async upload({ path }: any, userId: string) {
-    await imageUtils.compress(path);
-    return await Image.build({ path, userId }).save();
+
+  static async upload({ path, filename }: any, userId: string) {
+    // await imageUtils.compress(path);
+    return await Image.build({ filename, userId }).save();
   }
-  static async update({ path }: any, userId: string) {
+  
+  static async update({ filename }: any, userId: string) {
     const prevUserImage = await this.get(userId);
     imageUtils.delete(prevUserImage);
-    return await this.upload({ path }, userId);
+    return await this.upload({ filename }, userId);
   }
 }

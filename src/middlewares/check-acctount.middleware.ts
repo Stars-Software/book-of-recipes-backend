@@ -11,7 +11,7 @@ export const checkEmailExistance = async (
     const { email } = req.body;
     const userByEmail = await UserService.getByEmail(email);
     if (userByEmail) {
-      throw new CustomError(400, 'User with such email already exist');
+      throw new CustomError(404, 'User with such email already exist');
     }
     next();
   } catch (error) {

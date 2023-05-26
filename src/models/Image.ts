@@ -9,7 +9,7 @@ const Image = sequelize.define(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    path: { type: DataTypes.TEXT, allowNull: true },
+    filename: { type: DataTypes.TEXT, allowNull: false },
   },
   {
     timestamps: false,

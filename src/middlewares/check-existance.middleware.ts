@@ -22,7 +22,7 @@ export const checkExistance =
       const param = body[field] || params[field];
       const record = await service(userId, param);
       if (!record) {
-        throw new CustomError(404, 'Something went wrong');
+        throw new CustomError(404, 'Instance is not found');
       }
       return next();
     } catch (error) {
