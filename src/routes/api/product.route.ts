@@ -42,5 +42,10 @@ productRouter.delete(
   responseHandler(ProductController.delete),
   errorHandler
 );
+productRouter.get(
+  "/categories",
+  responseHandler(ProductController.getCategories),
+  errorHandler
+);
 
 export default productRouter;

@@ -36,5 +36,6 @@ User.hasOne(Token, { as: "tokens", foreignKey });
 User.hasMany(Category, { as: "categories", foreignKey });
 User.hasMany(Recipe, { as: "recipes", foreignKey });
 User.hasOne(Image, { as: "avatar", foreignKey });
+User.belongsToMany(Product, { through: "UserProducts" });
 
 export default User;

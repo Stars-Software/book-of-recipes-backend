@@ -1,4 +1,6 @@
 import { sequelize } from "../config/database/pool";
+import Recipe from "./Recipe";
+import User from "./User";
 const { DataTypes } = require("sequelize");
 
 const Product = sequelize.define(
@@ -16,5 +18,8 @@ const Product = sequelize.define(
     timestamps: false,
   }
 );
+
+Product.belongsToMany(Recipe, { through: "RecipeProducts" });
+Product.belongsToMany(User, { through: "UserProducts" });
 
 export default Product;

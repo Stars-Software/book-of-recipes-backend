@@ -7,7 +7,7 @@ export default class ImageService {
   }
 
   static async upload({ path, filename }: any, userId: string) {
-    // await imageUtils.compress(path);
+    await imageUtils.compress(path);
     return await Image.build({ filename, userId }).save();
   }
   

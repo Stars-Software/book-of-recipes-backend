@@ -1,6 +1,7 @@
 import Category from "../models/Product-Category";
 import Product from "../models/Product";
 import { IProduct, IProductDBRecord } from "../types/product.type";
+import ProductCategory from "../models/Product-Category";
 
 export class ProductService {
   static async create(
@@ -38,5 +39,9 @@ export class ProductService {
       where: { id, userId },
       include: [{ as: "categories", model: Category }],
     });
+  }
+
+  static async getCategories() {
+    return await ProductCategory.findAll();
   }
 }

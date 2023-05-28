@@ -1,5 +1,5 @@
-import { IRecipeProduct } from "../types/recipe.type";
 import { sequelize } from "../config/database/pool";
+import Product from "./Product";
 const { DataTypes } = require("sequelize");
 
 const Recipe = sequelize.define(
@@ -12,22 +12,14 @@ const Recipe = sequelize.define(
     },
     title: { type: DataTypes.TEXT, allowNull: false },
     desription: { type: DataTypes.TEXT, allowNull: false },
-    video: { type: DataTypes.TEXT },
-    products: {
-      type: DataTypes.STRING,
-      get: () => {
-        return JSON.parse(Recipe.getDataValue("products"));
-      },
-      set: (data: IRecipeProduct) => {
-        const values = Recipe.getDataValue("products");
-        values.push(data);
-        return Recipe.setDataValue("products", JSON.stringify(values));
-      },
-    },
+    video: { type: DataTypes.TEXT, allowNull: true },
+    private: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
   },
   {
     timestamps: false,
   }
 );
+
+Recipe.belongsToMany(Product, { through: "RecipeProducts" });
 
 export default Recipe;

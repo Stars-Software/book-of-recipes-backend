@@ -28,15 +28,13 @@ class ImageUtils {
 
   async compress(filePath: string) {
     const { size, quality, format } = this.options;
-    const extension = path.extname(filePath);
-    console.log("FILEPATH", filePath)
-    const newPath = filePath.replace(extension, this.options.format);
-    console.log("NEWPATH", newPath)
+    const fileParts = filePath.split(".");
+    const newFilePath = fileParts.join(".") + "." + this.options.format;
     await this.compressor(filePath)
       .resize(size)
       .toFormat(format)
       .jpeg({ quality })
-      .toFile(newPath);
+      .toFile(newFilePath);
   }
 
   delete(path: string) {

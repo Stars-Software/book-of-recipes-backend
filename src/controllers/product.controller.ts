@@ -35,4 +35,8 @@ export class ProductController {
     const productId = params.id;
     return await ProductService.delete(userId, productId);
   }
+  
+  static async getCategories() {
+    return await ProductService.getCategories();
+  }
 }
