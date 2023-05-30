@@ -1,6 +1,5 @@
 import { sequelize } from "../config/database/pool";
 import Recipe from "./Recipe";
-import Category from "./Product-Category";
 import Product from "./Product";
 import Token from "./Token";
 import Image from "./Image";
@@ -31,11 +30,7 @@ const User = sequelize.define(
   }
 );
 
-User.hasMany(Product, { as: "products", foreignKey });
 User.hasOne(Token, { as: "tokens", foreignKey });
-User.hasMany(Category, { as: "categories", foreignKey });
-User.hasMany(Recipe, { as: "recipes", foreignKey });
 User.hasOne(Image, { as: "avatar", foreignKey });
-User.belongsToMany(Product, { through: "UserProducts" });
 
 export default User;

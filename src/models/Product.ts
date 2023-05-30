@@ -20,6 +20,8 @@ const Product = sequelize.define(
 );
 
 Product.belongsToMany(Recipe, { through: "RecipeProducts" });
-Product.belongsToMany(User, { through: "UserProducts" });
+Recipe.belongsToMany(Product, { through: "RecipeProducts" });
 
+Product.belongsToMany(User, { through: "UserProducts" });
+User.belongsToMany(Product, { through: "UserProducts" });
 export default Product;

@@ -20,6 +20,4 @@ const Recipe = sequelize.define(
   }
 );
 
-Recipe.belongsToMany(Product, { through: "RecipeProducts" });
-
 export default Recipe;
