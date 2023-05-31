@@ -19,13 +19,16 @@ export default class UserService {
   static async getById(id: string) {
     return await User.findOne({
       where: { id },
+      attributes: { exclude: ["password"] },
       include: [{ as: "avatar", model: Image }],
-      exclude: ["password"],
     });
   }
 
   static async refresh(oldToken: string) {
     const tokenRecord = await TokenService.getByToken(oldToken);
+    if (!tokenRecord) {
+      throw new CustomError(403, "Session expired");
+    }
     return await TokenService.update(tokenRecord.dataValues.userId);
   }
 

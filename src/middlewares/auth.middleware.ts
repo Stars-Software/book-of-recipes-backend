@@ -1,25 +1,28 @@
-import { NextFunction, Response } from "express";
-import { IRequest } from "../types/request.type";
+import { Request, Response } from "express";
 import { CustomError } from "../utils/error.util";
+import { NextFunction } from "connect";
 
 const passport = require("passport");
 
 export const authenticate = (
-  req: IRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  passport.authenticate("jwt", { session: false }, (err: Error, user: any) => {
-    if (err) {
-      return next(err);
-    }
+  passport.authenticate(
+    "jwt",
+    { session: false },
+    (err: Error, user: any, info: any) => {
+      if (err) {
+        return next(err);
+      }
 
-    if (!user) {
-      const error = new CustomError(500, "Not authed!");
-      return next(error);
+      if (!user || info?.name === "TokenExpiredError") {
+        const error = new CustomError(401, "Unathorized");
+        return next(error);
+      }
+      req.user = user;
+      next();
     }
-
-    req.user = user;
-    next();
-  })(req, res, next);
+  )(req, res, next);
 };

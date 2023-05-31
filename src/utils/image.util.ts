@@ -25,16 +25,14 @@ class ImageUtils {
     this.compressor = compressor;
     this.options = options;
   }
-
+  //find out the soluton with file extension
   async compress(filePath: string) {
     const { size, quality, format } = this.options;
-    const fileParts = filePath.split(".");
-    const newFilePath = fileParts.join(".") + "." + this.options.format;
     await this.compressor(filePath)
       .resize(size)
       .toFormat(format)
       .jpeg({ quality })
-      .toFile(newFilePath);
+      .toBuffer();
   }
 
   delete(path: string) {

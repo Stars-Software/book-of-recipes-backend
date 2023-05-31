@@ -24,15 +24,15 @@ userRouter.post(
   errorHandler
 );
 
-userRouter.get("/avatar/images/:file", serveImage, errorHandler);
-
-userRouter.use("/", authenticate);
-
 userRouter.get(
   "/refresh",
   responseHandler(UserController.refresh),
   errorHandler
 );
+
+userRouter.get("/avatar/images/:file", serveImage, errorHandler);
+
+userRouter.use("/", authenticate, errorHandler);
 
 userRouter.post(
   "/upload",

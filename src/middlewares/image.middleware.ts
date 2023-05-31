@@ -16,7 +16,7 @@ const fileFilter = (
   if (allowedFileTypes.includes(file.mimetype)) {
     return cb(null, true);
   }
-  return cb(new CustomError(400, "Error with image file"));
+  return cb(new CustomError(500, "Error with image file"));
 };
 
 const storage = multer.diskStorage({

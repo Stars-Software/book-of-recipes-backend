@@ -10,7 +10,7 @@ export default class ImageService {
     await imageUtils.compress(path);
     return await Image.build({ filename, userId }).save();
   }
-  
+
   static async update({ filename }: any, userId: string) {
     const prevUserImage = await this.get(userId);
     imageUtils.delete(prevUserImage);
