@@ -17,6 +17,7 @@ userRouter.post(
   responseHandler(UserController.signUp),
   errorHandler
 );
+
 userRouter.post(
   "/login",
   validateBody(SignInSchema),
@@ -30,7 +31,11 @@ userRouter.get(
   errorHandler
 );
 
-userRouter.get("/avatar/images/:file", serveImage, errorHandler);
+userRouter.get(
+  "/images/:file",
+  serveImage("images/users/"),
+  errorHandler
+);
 
 userRouter.use("/", authenticate, errorHandler);
 

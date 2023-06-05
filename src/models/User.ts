@@ -1,6 +1,4 @@
 import { sequelize } from "../config/database/pool";
-import Recipe from "./Recipe";
-import Product from "./Product";
 import Token from "./Token";
 import Image from "./Image";
 const { DataTypes } = require("sequelize");
@@ -31,6 +29,8 @@ const User = sequelize.define(
 );
 
 User.hasOne(Token, { as: "tokens", foreignKey });
+Token.belongsTo(User, { as: "users", foreignKey });
 User.hasOne(Image, { as: "avatar", foreignKey });
+Image.belongsTo(User, { as: "users", foreignKey });
 
 export default User;

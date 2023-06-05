@@ -5,7 +5,7 @@ import multer, { FileFilterCallback } from "multer";
 import { CustomError } from "../utils/error.util";
 
 const allowedFileTypes = ["image/png", "image/jpeg", "image/jpg"];
-const dest = "images/";
+const dest = "images/users";
 const option = "file";
 
 const fileFilter = (
@@ -33,12 +33,13 @@ export const writeImage = (req: Request, res: Response, next: NextFunction) => {
   return handler(req, res, next);
 };
 
-export const serveImage = (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { file } = req.params;
-    const imagePath = dest + file;
-    res.sendFile(path.resolve(imagePath));
-  } catch (error) {
-    next(error);
-  }
-};
+export const serveImage =
+  (dest: string) => (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { file } = req.params;
+      const imagePath = dest + file;
+      res.sendFile(path.resolve(imagePath));
+    } catch (error) {
+      next(error);
+    }
+  };

@@ -1,45 +1,59 @@
 [
     {
-      "title": "Meat"
+      "title": "Meat",
+      "image": "images/products/meat.png"
     },
     {
-      "title": "Poultry"
+      "title": "Poultry",
+      "image": "images/products/poultry.png"
     },
     {
-      "title": "Sea Products"
+      "title": "Sea Products",
+      "image": "images/products/sea_food.png"
     },
     {
-      "title": "Egg Products"
+      "title": "Egg Products",
+      "image": "images/products/egg.png"
     },
     {
-      "title": "Dairy Products"
+      "title": "Dairy Products",
+      "image": "images/products/milk.png"
     },
     {
-      "title": "Soybean Products"
+      "title": "Soybean Products",
+      "image": "images/products/soybean.png"
     },
     {
-      "title": "Vegetables"
+      "title": "Vegetables",
+      "image": "images/products/vegetables.png"
     },
     {
-      "title": "Greenery"
+      "title": "Greenery",
+      "image": "images/products/greenery.png"
     },
     {
-      "title": "Fruits"
+      "title": "Fruits",
+      "image": "images/products/fruits.png"
     },
     {
-      "title": "Mushrooms"
+      "title": "Mushrooms",
+      "image": "images/products/mushrooms.png"
     },
     {
-      "title": "Fats & Oils"
+      "title": "Fats & Oils",
+      "image": "images/products/olive.png"
     },
     {
-      "title": "Cereals & Grains"
+      "title": "Cereals & Grains",
+      "image": "images/products/cereals.png"
     },
     {
-      "title": "Spices"
+      "title": "Spices",
+      "image": "images/products/spices.png"
     },
     {
-      "title": "Flour Products"
+      "title": "Flour Products",
+      "image": "images/products/flour.png"
     }
   ]
   

@@ -8,7 +8,7 @@ export class ProductService {
     userId: string,
     data: IProduct
   ): Promise<IProductDBRecord | null> {
-    return await Product.build({ ...data, userId }).save();
+    return await Product.create({ ...data, userId });
   }
 
   static async update(
@@ -21,14 +21,25 @@ export class ProductService {
   }
 
   static async delete(userId: string, id: string) {
-    return await Product.destroy({ where: { id, userId } });
+    await Product.destroy({ where: { id, userId } });
   }
 
-  static async getAll(userId: string): Promise<IProductDBRecord[] | null> {
-    return await Product.findAll({
-      where: { userId },
-      include: [{ as: "categories", model: Category }],
-    });
+  static async getAll(
+    userId: string,
+    categoryId: string
+  ): Promise<IProductDBRecord[] | null> {
+    const where = { userId };
+    const include = categoryId
+      ? [
+          {
+            model: Category,
+            as: "product_categories",
+            where: { id: categoryId },
+          },
+        ]
+      : [];
+
+    return await Product.findAll({ where, include });
   }
 
   static async getById(
@@ -37,7 +48,7 @@ export class ProductService {
   ): Promise<IProductDBRecord | null> {
     return await Product.findOne({
       where: { id, userId },
-      include: [{ as: "categories", model: Category }],
+      include: [{ model: Category, as: "product_categories" }],
     });
   }
 

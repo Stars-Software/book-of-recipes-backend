@@ -1,6 +1,5 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { CustomError } from "../utils/error.util";
-import { NextFunction } from "connect";
 
 const passport = require("passport");
 
@@ -17,10 +16,14 @@ export const authenticate = (
         return next(err);
       }
 
-      if (!user || info?.name === "TokenExpiredError") {
-        const error = new CustomError(401, "Unathorized");
-        return next(error);
+      if (!user) {
+        return next(new CustomError(401, "Wrong token"));
       }
+
+      if (info && info.name === "TokenExpiredError") {
+        return next(new CustomError(403, "Token expired"));
+      }
+
       req.user = user;
       next();
     }

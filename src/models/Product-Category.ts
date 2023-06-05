@@ -12,6 +12,7 @@ const ProductCategory = sequelize.define(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
+    image: { type: DataTypes.TEXT, allowNull: false },
     title: { type: DataTypes.TEXT, allowNull: false },
   },
   {
@@ -20,5 +21,9 @@ const ProductCategory = sequelize.define(
 );
 
 ProductCategory.hasMany(Product, { as: "products", foreignKey });
+Product.belongsTo(ProductCategory, {
+  foreignKey: "categoryId",
+  as: "product_categories",
+});
 
 export default ProductCategory;
