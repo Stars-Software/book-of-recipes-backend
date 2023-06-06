@@ -15,7 +15,7 @@ type ImageOptions = {
   format: string;
 };
 
-class ImageUtils {
+export class ImageUtils {
   private fileHandler: any;
   private compressor: any;
   public options: ImageOptions;
