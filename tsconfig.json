@@ -7,6 +7,7 @@
     "typeRoots": ["@types/node", "./src/types"],
     "module": "commonjs",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "target": "es5",
     "moduleResolution": "node",
     "sourceMap": true,
@@ -16,5 +17,6 @@
       "*": ["node_modules/*"]
     }
   },
-  "include": ["src/**/*"]
+  "types": ["jest"],
+  "include": ["src/**/*", "tests/utils/error.test.ts"]
 }
