@@ -3,6 +3,7 @@ import { IRequest } from "./request.type";
 
 export type IProduct = {
   title: string;
+  categoryId: string;
   amount: number;
 }
 

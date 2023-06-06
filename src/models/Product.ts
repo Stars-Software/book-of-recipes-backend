@@ -12,6 +12,15 @@ const Product = sequelize.define(
       primaryKey: true,
     },
     title: { type: DataTypes.TEXT, allowNull: false },
+  },
+  {
+    timestamps: false,
+  }
+);
+
+export const UserProduct = sequelize.define(
+  "user_products",
+  {
     amount: { type: DataTypes.INTEGER, default: 0, allowNull: false },
   },
   {
@@ -19,9 +28,20 @@ const Product = sequelize.define(
   }
 );
 
-Product.belongsToMany(Recipe, { through: "RecipeProducts" });
-Recipe.belongsToMany(Product, { through: "RecipeProducts" });
+export const RecipeProduct = sequelize.define(
+  "recipe_products",
+  {
+    amount: { type: DataTypes.INTEGER, default: 0, allowNull: false },
+  },
+  {
+    timestamps: false,
+  }
+);
 
-Product.belongsToMany(User, { through: "UserProducts" });
-User.belongsToMany(Product, { through: "UserProducts" });
+Product.belongsToMany(Recipe, { through: RecipeProduct });
+Recipe.belongsToMany(Product, { through: RecipeProduct });
+
+Product.belongsToMany(User, { through: UserProduct });
+User.belongsToMany(Product, { through: UserProduct });
+
 export default Product;

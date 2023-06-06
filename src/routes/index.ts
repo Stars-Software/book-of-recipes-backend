@@ -1,5 +1,4 @@
 import { Application } from 'express';
-import categoryRouter from './api/category.route';
 import recipeRouter from './api/recipe.route';
 import productRouter from './api/product.route';
 import userRouter from './api/users.route';
@@ -13,7 +12,6 @@ class AppRouter {
     });
     this.app.use('/products', productRouter);
     this.app.use('/user', userRouter);
-    this.app.use('/categories', categoryRouter);
     this.app.use('/recipes', recipeRouter);
   }
 }
