@@ -1,37 +1,12 @@
-import Category from "../models/Recipe";
-import { ICategory, ICategoryDBRecord } from "../types/category.type";
+import RecipeCategory from "../models/Recipe-Category";
+import ProductCategory from "../models/Product-Category";
 
 export class CategoryService {
-  static async create(
-    userId: string,
-    data: ICategory
-  ): Promise<ICategoryDBRecord | null> {
-    return await Category.build({ ...data, userId }).save();
+  static async getAllProductCategories() {
+    return await ProductCategory.findAll();
   }
 
-  static async update(
-    userId: string,
-    id: string,
-    data: ICategory
-  ): Promise<ICategoryDBRecord | null> {
-    await Category.update(data, { where: { id, userId } });
-    return await CategoryService.getById(userId, id);
-  }
-
-  static async delete(userId: string, id: string) {
-    return await Category.destroy({ where: { id, userId } });
-  }
-
-  static async getAll(userId: string): Promise<ICategoryDBRecord[] | null> {
-    return await Category.findAll({ where: { userId } });
-  }
-
-  static async getById(
-    userId: string,
-    id: string
-  ): Promise<ICategoryDBRecord | null> {
-    return await Category.findOne({
-      where: { id, userId },
-    });
+  static async getAllRecipeCategories() {
+    return await RecipeCategory.findAll();
   }
 }

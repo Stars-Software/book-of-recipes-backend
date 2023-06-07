@@ -1,6 +1,5 @@
 import Product from "../models/Product";
 import { IProduct, IProductDBRecord } from "../types/product.type";
-import ProductCategory from "../models/Product-Category";
 import User from "../models/User";
 
 export class ProductService {
@@ -36,9 +35,5 @@ export class ProductService {
     id: string
   ): Promise<IProductDBRecord | null> {
     return await User.getProducts(userId, { id });
-  }
-
-  static async getCategories() {
-    return await ProductCategory.findAll();
   }
 }

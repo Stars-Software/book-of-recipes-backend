@@ -32,6 +32,7 @@ export class ProductController {
     return await ProductService.update(userId, productId, body);
   }
 
+
   static async delete(req: IProductRequest): Promise<void> {
     const { params, user } = req;
     const { userId } = user;
@@ -39,7 +40,4 @@ export class ProductController {
     return await ProductService.delete(userId, productId);
   }
 
-  static async getCategories(): Promise<ICategory[]> {
-    return await ProductService.getCategories();
-  }
 }
