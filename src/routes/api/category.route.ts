@@ -13,15 +13,17 @@ categoryRouter.get(
   errorHandler
 );
 
-categoryRouter.use("", authenticate);
+categoryRouter.use("", authenticate, errorHandler);
 
 categoryRouter.get(
   "/products",
-  responseHandler(CategoryController.getProductCategories)
+  responseHandler(CategoryController.getProductCategories),
+  errorHandler
 );
 
 categoryRouter.get(
   "/recipes",
-  responseHandler(CategoryController.getRecipeCategories)
+  responseHandler(CategoryController.getRecipeCategories),
+  errorHandler
 );
 export default categoryRouter;

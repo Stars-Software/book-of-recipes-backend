@@ -3,6 +3,8 @@ import Recipe from "./Recipe";
 import User from "./User";
 const { DataTypes } = require("sequelize");
 
+const onUpdate = "CASCADE";
+
 const Product = sequelize.define(
   "products",
   {
@@ -38,10 +40,24 @@ export const RecipeProduct = sequelize.define(
   }
 );
 
-Product.belongsToMany(Recipe, { through: RecipeProduct });
-Recipe.belongsToMany(Product, { through: RecipeProduct });
+Product.belongsToMany(Recipe, {
+  through: RecipeProduct,
+  onUpdate,
+});
 
-Product.belongsToMany(User, { through: UserProduct });
-User.belongsToMany(Product, { through: UserProduct });
+Recipe.belongsToMany(Product, {
+  through: RecipeProduct,
+  onUpdate,
+});
+
+Product.belongsToMany(User, {
+  through: UserProduct,
+  onUpdate,
+});
+
+User.belongsToMany(Product, {
+  through: UserProduct,
+  onUpdate,
+});
 
 export default Product;

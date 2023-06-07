@@ -14,14 +14,15 @@ import { authenticate } from "../../middlewares/auth.middleware";
 
 const productRouter: Router = Router();
 
-productRouter.use("", authenticate);
+productRouter.use("", authenticate, errorHandler);
 
 productRouter.get("", responseHandler(ProductController.getAll), errorHandler);
 
 productRouter.post(
   "",
   validateBody(CreateProductSchema),
-  responseHandler(ProductController.create)
+  responseHandler(ProductController.create),
+  errorHandler
 );
 
 productRouter.use(

@@ -1,4 +1,4 @@
-import Product from "../models/Product";
+import Product, { UserProduct } from "../models/Product";
 import { IProduct, IProductDBRecord } from "../types/product.type";
 import User from "../models/User";
 import { dataBaseUtils } from "../utils/database.util";
@@ -17,11 +17,18 @@ export class ProductService {
 
   static async update(
     userId: string,
-    id: string,
+    productId: string,
     data: IProduct
   ): Promise<IProductDBRecord | null> {
-    await Product.update(data, { where: { id, userId } });
-    return await ProductService.getById(userId, id);
+    const { categoryId, amount } = data;
+    await Promise.all([
+      Product.update({ categoryId }, { where: { id: productId } }),
+      UserProduct.update(
+        { categoryId, amount },
+        { where: { productId, userId } }
+      ),
+    ]);
+    return await ProductService.getById(userId, productId);
   }
 
   static async delete(userId: string, id: string) {
@@ -33,10 +40,12 @@ export class ProductService {
     return dataBaseUtils.destructObjects(products, DB_FORMAT.PRODUCTS_LIST);
   }
 
-  static async getById(
-    userId: string,
-    id: string
-  ): Promise<IProductDBRecord | null> {
-    return await User.getProducts(userId, { id });
+  static async getById(userId: string, id: string): Promise<any | null> {
+    const product = await User.getProducts(userId, { id });
+    const [formatted] = dataBaseUtils.destructObjects(
+      product,
+      DB_FORMAT.PRODUCTS_LIST
+    );
+    return formatted;
   }
 }
