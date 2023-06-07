@@ -2,6 +2,8 @@ import { sequelize } from "../config/database/pool";
 import Token from "./Token";
 import Image from "./Image";
 import Product from "./Product";
+import ProductCategory from "./Product-Category";
+import { dataBaseUtils } from "../utils/database.util";
 const { DataTypes } = require("sequelize");
 
 const foreignKey = "userId";
@@ -30,15 +32,15 @@ const User = sequelize.define(
 );
 
 User.getProducts = async (userId: string, options: any) => {
-  const where = [];
+  const where: any = {};
 
   for (const [key, value] of Object.entries(options)) {
     if (value) {
-      where.push({[key]: value});
+      where[key] = value;
     }
   }
-  
-  const { products } = await User.findOne({
+
+  const data = await User.findOne({
     where: { id: userId },
     include: [
       {
@@ -46,12 +48,21 @@ User.getProducts = async (userId: string, options: any) => {
         through: {
           attributes: ["amount"],
         },
+        include: [
+          {
+            model: ProductCategory,
+            as: "product_categories",
+            attributes: ["image", "title"],
+          },
+        ],
         where,
       },
     ],
   });
-  return products;
+  
+  return data ? data.products : [];
 };
+
 
 User.hasOne(Token, { as: "tokens", foreignKey });
 Token.belongsTo(User, { as: "users", foreignKey });

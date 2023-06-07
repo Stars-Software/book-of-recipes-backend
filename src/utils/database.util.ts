@@ -9,6 +9,39 @@ class DataBaseUtils {
     this.tool = sequelize;
     this.fileReader = readFileSync;
   }
+
+  destructObjects(
+    mainObjects: Record<string, any>[],
+    nestedFields: [string, ...string[]][]
+  ): Record<string, any>[] {
+    const modifiedObjects: Record<string, any>[] = [];
+
+    for (const mainObj of mainObjects) {
+      const mainObjStringified = JSON.stringify(mainObj);
+      const mainObjParsed = JSON.parse(mainObjStringified);
+      const modifiedObj: Record<string, any> = { ...mainObjParsed };
+
+      for (const [nestedObjName, ...nestedFieldNames] of nestedFields) {
+        if (nestedObjName in modifiedObj) {
+          const nestedObj = modifiedObj[nestedObjName];
+          const nestedProperties = Object.keys(nestedObj);
+
+          for (const nestedFieldName of nestedFieldNames) {
+            if (nestedProperties.includes(nestedFieldName)) {
+              modifiedObj[nestedFieldName] = nestedObj[nestedFieldName];
+            }
+          }
+
+          delete modifiedObj[nestedObjName];
+        }
+      }
+
+      modifiedObjects.push(modifiedObj);
+    }
+
+    return modifiedObjects;
+  }
+
   async seedData(filePath: string, model: any) {
     try {
       await model.sync({ force: true });

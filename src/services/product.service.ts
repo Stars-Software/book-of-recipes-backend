@@ -1,6 +1,8 @@
 import Product from "../models/Product";
 import { IProduct, IProductDBRecord } from "../types/product.type";
 import User from "../models/User";
+import { dataBaseUtils } from "../utils/database.util";
+import { DB_FORMAT } from "../config/database/responseOptions/product.options";
 
 export class ProductService {
   static async create(
@@ -27,7 +29,8 @@ export class ProductService {
   }
 
   static async getAll(userId: string, categoryId: string): Promise<any[]> {
-    return await User.getProducts(userId, { categoryId });
+    const products = await User.getProducts(userId, { categoryId });
+    return dataBaseUtils.destructObjects(products, DB_FORMAT.PRODUCTS_LIST);
   }
 
   static async getById(

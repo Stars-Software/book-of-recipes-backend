@@ -1,4 +1,3 @@
-import { ICategory } from "../types/category.type";
 import { ProductService } from "../services/product.service";
 import { IProductRequest, IProductDBRecord } from "../types/product.type";
 
