@@ -1,24 +1,32 @@
- class ProductsChecker {
-    checkRecipe(receipt, userProductsList) {
-        const isAvailable = this.checkAvailability(receipt, userProductsList);
-
-        if (isAvailable) {
-            const hasEnoughQuantity = this.checkQuantity(receipt, userProductsList);
-            return hasEnoughQuantity;
+class ProductsChecker {
+    checkRecipe(recipe, userProductsList) {
+        if (this.checkAvailability(recipe.products, userProductsList)) {
+            return this.checkQuantity(recipe.products, userProductsList);
         }
 
         return false;
     }
-      checkAvailability(receipt, userProductsList) {
-         return receipt.products.every((product) =>
-             userProductsList.some((p) => p.id === product.id)
-         );
-     }
 
-     checkQuantity(receipt, userProductsList) {
-         return receipt.products.every((product) =>
-             userProductsList.some((p) => p.id === product.id && p.amount >= product.amount)
-         );
-     }
+    checkAvailability(recipeProducts, userProductsList) {
+        if (recipeProducts && recipeProducts.length > 0) {
+            return recipeProducts.every(product => {
+                return userProductsList.some(userProduct => userProduct.id === product.id);
+            });
+        }
+
+        return false;
+    }
+
+    checkQuantity(recipeProducts, userProductsList) {
+        if (recipeProducts && recipeProducts.length > 0) {
+            return recipeProducts.every(product => {
+                const userProduct = userProductsList.find(userProduct => userProduct.id === product.id);
+                return userProduct && userProduct.amount >= product.recipe_products.amount;
+            });
+        }
+
+        return false;
+    }
 }
- module.exports = ProductsChecker;
+
+module.exports = ProductsChecker;
