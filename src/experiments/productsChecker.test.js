@@ -1,98 +1,182 @@
 const ProductsChecker = require('./productsChecker');
 
+
 describe('ProductsChecker', () => {
+    let checker;
+
+    beforeEach(() => {
+        checker = new ProductsChecker();
+    });
+
+    describe('checkAvailability', () => {
+        test('returns false if any required product is missing', () => {
+            const recipeProducts = [
+                { id: '585a5a18-eef4-445c-8b3f-05d12363c216' },
+                { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528' },
+                { id: '3fbdcbac-50d6-4697-99e0-df7c18e4329b' },
+            ];
+            const userProductsList = [
+                { id: '585a5a18-eef4-445c-8b3f-05d12363c216' },
+                { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528' },
+            ];
+
+            const result = checker.checkAvailability(recipeProducts, userProductsList);
+
+            expect(result).toBe(false);
+        });
+
+        test('returns true if all required products are available', () => {
+            const recipeProducts = [
+                { id: '585a5a18-eef4-445c-8b3f-05d12363c216' },
+                { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528' },
+                { id: '3fbdcbac-50d6-4697-99e0-df7c18e4329b' },
+            ];
+            const userProductsList = [
+                { id: '585a5a18-eef4-445c-8b3f-05d12363c216' },
+                { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528' },
+                { id: '3fbdcbac-50d6-4697-99e0-df7c18e4329b' },
+            ];
+
+            const result = checker.checkAvailability(recipeProducts, userProductsList);
+
+            expect(result).toBe(true);
+        });
+
+        test('returns false if recipeProducts is empty', () => {
+            const recipeProducts = [];
+            const userProductsList = [
+                { id: '585a5a18-eef4-445c-8b3f-05d12363c216' },
+                { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528' },
+                { id: '3fbdcbac-50d6-4697-99e0-df7c18e4329b' },
+            ];
+
+            const result = checker.checkAvailability(recipeProducts, userProductsList);
+
+            expect(result).toBe(false);
+        });
+
+        test('returns false if userProductsList is empty', () => {
+            const recipeProducts = [
+                { id: '585a5a18-eef4-445c-8b3f-05d12363c216' },
+                { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528' },
+                { id: '3fbdcbac-50d6-4697-99e0-df7c18e4329b' },
+            ];
+            const userProductsList = [];
+
+            const result = checker.checkAvailability(recipeProducts, userProductsList);
+
+            expect(result).toBe(false);
+        });
+    });
+
+    describe('checkQuantity', () => {
+        test('returns false if any required product has insufficient quantity', () => {
+            const recipeProducts = [
+                { id: '585a5a18-eef4-445c-8b3f-05d12363c216', recipe_products: { amount: 2000 } },
+                { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528', recipe_products: { amount: 150 } },
+            ];
+            const userProductsList = [
+                { id: '585a5a18-eef4-445c-8b3f-05d12363c216', amount: 1500 },
+                { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528', amount: 100 },
+            ];
+
+            const result = checker.checkQuantity(recipeProducts, userProductsList);
+
+            expect(result).toBe(false);
+        });
+
+        test('returns true if all required products have sufficient quantity', () => {
+            const recipeProducts = [
+                { id: '585a5a18-eef4-445c-8b3f-05d12363c216', recipe_products: { amount: 500 } },
+                { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528', recipe_products: { amount: 50 } },
+            ];
+            const userProductsList = [
+                { id: '585a5a18-eef4-445c-8b3f-05d12363c216', amount: 600 },
+                { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528', amount: 70 },
+            ];
+
+            const result = checker.checkQuantity(recipeProducts, userProductsList);
+
+            expect(result).toBe(true);
+        });
+
+        test('returns false if recipeProducts is empty', () => {
+            const recipeProducts = [];
+            const userProductsList = [
+                { id: '585a5a18-eef4-445c-8b3f-05d12363c216' },
+                { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528' },
+                { id: '3fbdcbac-50d6-4697-99e0-df7c18e4329b' },
+            ];
+
+            const result = checker.checkQuantity(recipeProducts, userProductsList);
+
+            expect(result).toBe(false);
+        });
+
+        test('returns false if userProductsList is empty', () => {
+            const recipeProducts = [
+                { id: '585a5a18-eef4-445c-8b3f-05d12363c216' },
+                { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528' },
+                { id: '3fbdcbac-50d6-4697-99e0-df7c18e4329b' },
+            ];
+            const userProductsList = [];
+
+            const result = checker.checkQuantity(recipeProducts, userProductsList);
+
+            expect(result).toBe(false);
+        });
+    });
+
     describe('checkRecipe', () => {
-        const productsChecker = new ProductsChecker();
+        test('returns false if any required product is missing', () => {
+            const recipe = {
+                products: [
+                    { id: '585a5a18-eef4-445c-8b3f-05d12363c216' },
+                    { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528' },
+                    { id: '3fbdcbac-50d6-4697-99e0-df7c18e4329b' },
+                ],
+            };
+            const userProductsList = [
+                { id: '585a5a18-eef4-445c-8b3f-05d12363c216' },
+                { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528' },
+            ];
 
-        const receipt = {
-            title: 'Test',
-            description: 'Text',
-            products: [
-                { id: 'a1b2c3', title: 'test1', amount: 100 },
-                { id: 'd4e5f6', title: 'test2', amount: 200 },
-            ],
-        };
+            const result = checker.checkRecipe(recipe, userProductsList);
 
-        const userProductsList = [
-            {
-                id: 'a1b2c3',
-                title: 'test1',
-                categoryID: '1234-5678-abcd',
-                products_categories: {
-                    image: 'images/products/olive.png',
-                    title: 'Fats & Oils',
-                },
-                amount: 100,
-            },
-            {
-                id: 'd4e5f6',
-                title: 'test2',
-                categoryID: '1234-5678-abcd',
-                products_categories: {
-                    image: 'images/products/olive.png',
-                    title: 'Fats & Oils',
-                },
-                amount: 300,
-            },
-            {
-                id: 'g7h8i9',
-                title: 'test3',
-                categoryID: '1234-5678-abcd',
-                products_categories: {
-                    image: 'images/products/olive.png',
-                    title: 'Fats & Oils',
-                },
-                amount: 100,
-            },
-        ];
+            expect(result).toBe(false);
+        });
 
-        it('should return true if all products are available and have enough quantity', () => {
-            const result = productsChecker.checkRecipe(receipt, userProductsList);
+        test('returns true if all required products are available and have sufficient quantity', () => {
+            const recipe = {
+                products: [
+                    { id: '585a5a18-eef4-445c-8b3f-05d12363c216', recipe_products: { amount: 500 } },
+                    { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528', recipe_products: { amount: 50 } },
+                ],
+            };
+            const userProductsList = [
+                { id: '585a5a18-eef4-445c-8b3f-05d12363c216', amount: 600 },
+                { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528', amount: 70 },
+            ];
+
+            const result = checker.checkRecipe(recipe, userProductsList);
+
             expect(result).toBe(true);
         });
 
-        it('should return false if any product is missing', () => {
-            const missingProductList = userProductsList.filter((product) => product.id !== 'a1b2c3');
-            const result = productsChecker.checkRecipe(receipt, missingProductList);
-            expect(result).toBe(false);
-        });
-
-        it('should return false if any product has insufficient quantity', () => {
-            const insufficientQuantityList = userProductsList.map((product) => {
-                if (product.id === 'd4e5f6') {
-                    return { ...product, amount: 150 };
-                }
-                return product;
-            });
-            const result = productsChecker.checkRecipe(receipt, insufficientQuantityList);
-            expect(result).toBe(false);
-        });
-
-        it('should handle an empty receipt', () => {
-            const emptyReceipt = {
-                title: 'Empty Receipt',
-                description: 'No products',
+        test('returns false if recipe.products is empty', () => {
+            const recipe = {
                 products: [],
             };
-            const result = productsChecker.checkRecipe(emptyReceipt, userProductsList);
-            expect(result).toBe(true);
-        });
+            const userProductsList = [
+                { id: '585a5a18-eef4-445c-8b3f-05d12363c216' },
+                { id: 'd75789df-15ec-4d71-9dc6-66d80be9b528' },
+                { id: '3fbdcbac-50d6-4697-99e0-df7c18e4329b' },
+            ];
 
-        it('should handle an empty user products list', () => {
-            const emptyUserProductsList = [];
-            const result = productsChecker.checkRecipe(receipt, emptyUserProductsList);
+            const result = checker.checkRecipe(recipe, userProductsList);
+
             expect(result).toBe(false);
-        });
-
-        it('should handle an empty receipt and empty user products list', () => {
-            const emptyReceipt = {
-                title: 'Empty Receipt',
-                description: 'No products',
-                products: [],
-            };
-            const emptyUserProductsList = [];
-            const result = productsChecker.checkRecipe(emptyReceipt, emptyUserProductsList);
-            expect(result).toBe(true);
         });
     });
 });
+
