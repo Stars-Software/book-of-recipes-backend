@@ -9,27 +9,16 @@
 
         return false;
     }
+      checkAvailability(receipt, userProductsList) {
+         return receipt.products.every((product) =>
+             userProductsList.some((p) => p.id === product.id)
+         );
+     }
 
-    checkAvailability(receipt, userProductsList) {
-        for (const product of receipt.products) {
-            const userProduct = userProductsList.find((p) => p.id === product.id);
-
-            if (!userProduct) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    checkQuantity(receipt, userProductsList) {
-        for (const product of receipt.products) {
-            const userProduct = userProductsList.find((p) => p.id === product.id);
-
-            if (userProduct.amount < product.amount) {
-                return false;
-            }
-        }
-        return true;
-    }
+     checkQuantity(receipt, userProductsList) {
+         return receipt.products.every((product) =>
+             userProductsList.some((p) => p.id === product.id && p.amount >= product.amount)
+         );
+     }
 }
  module.exports = ProductsChecker;
