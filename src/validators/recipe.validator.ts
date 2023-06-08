@@ -2,8 +2,8 @@ import * as Joi from "joi";
 
 export const CreateRecipeSchema = Joi.object({
   title: Joi.string().trim().required(),
-  desription: Joi.string().trim().required(),
-  video: Joi.string().trim().required(),
+  description: Joi.string().trim().required(),
+  private: Joi.boolean().required(),
   products: Joi.any(),
 });
 

@@ -1,9 +1,12 @@
 import { sequelize } from "../config/database/pool";
 import Token from "./Token";
 import Image from "./Image";
-import Product from "./Product";
-import ProductCategory from "./Product-Category";
+
 import { dataBaseUtils } from "../utils/database.util";
+import { Product } from "./User-Product";
+import { ProductCategory } from "./Product-Category";
+import { Recipe } from "./Recipe";
+
 const { DataTypes } = require("sequelize");
 
 const foreignKey = "userId";
@@ -59,14 +62,15 @@ User.getProducts = async (userId: string, options: any) => {
       },
     ],
   });
-  
+
   return data ? data.products : [];
 };
-
 
 User.hasOne(Token, { as: "tokens", foreignKey });
 Token.belongsTo(User, { as: "users", foreignKey });
 User.hasOne(Image, { as: "avatar", foreignKey });
 Image.belongsTo(User, { as: "users", foreignKey });
+User.hasMany(Recipe, { as: "recipes", foreignKey });
+Recipe.belongsTo(User, { as: "recipes", foreignKey });
 
 export default User;

@@ -23,7 +23,6 @@ recipeRouter.get(
 );
 recipeRouter.post(
   "",
-
   validateBody(CreateRecipeSchema),
   responseHandler(RecipeController.create),
   errorHandler

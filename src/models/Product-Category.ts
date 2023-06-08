@@ -1,10 +1,10 @@
 import { sequelize } from "../config/database/pool";
-import Product from "./Product";
+import { Product } from "./User-Product";
 const { DataTypes } = require("sequelize");
 
 const foreignKey = "categoryId";
 
-const ProductCategory = sequelize.define(
+export const ProductCategory = sequelize.define(
   "product_categories",
   {
     id: {
@@ -19,7 +19,3 @@ const ProductCategory = sequelize.define(
     timestamps: false,
   }
 );
-
-Product.belongsTo(ProductCategory, { as: "product_categories", foreignKey });
-
-export default ProductCategory;

@@ -1,12 +1,16 @@
+import { Product } from "../models/User-Product";
+import { Recipe } from "../models/Recipe";
 import { IRecipe, IRecipeDBRecord } from "../types/recipe.type";
-import Recipe from "../models/Product-Category";
 
 export class RecipeService {
-  static async create(
-    userId: string,
-    data: IRecipe
-  ): Promise<IRecipeDBRecord | null> {
-    return await Recipe.build({ ...data, userId }).save();
+  static async create(userId: string, data: any): Promise<any | null> {
+    const {products, ...rest } = data;
+    const recipe = await Recipe.create({ ...rest, userId });
+    for (const { id, amount } of products) {
+      const product = await Product.fidByPk(id);
+      await recipe.addProduct(product, { through: { amount } });
+    }
+    return recipe
   }
 
   static async update(

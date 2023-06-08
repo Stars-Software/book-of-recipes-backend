@@ -1,8 +1,8 @@
 import { sequelize } from "../config/database/pool";
-import Product from "./Product";
+import { RecipeCategory } from "./Recipe-Category";
 const { DataTypes } = require("sequelize");
 
-const Recipe = sequelize.define(
+export const Recipe = sequelize.define(
   "recipes",
   {
     id: {
@@ -11,8 +11,7 @@ const Recipe = sequelize.define(
       primaryKey: true,
     },
     title: { type: DataTypes.TEXT, allowNull: false },
-    desription: { type: DataTypes.TEXT, allowNull: false },
-    video: { type: DataTypes.TEXT, allowNull: true },
+    description: { type: DataTypes.TEXT, allowNull: false },
     private: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
   },
   {
@@ -20,4 +19,3 @@ const Recipe = sequelize.define(
   }
 );
 
-export default Recipe;

@@ -1,10 +1,11 @@
 import { sequelize } from "../config/database/pool";
-import Recipe from "./Recipe";
+import { Recipe } from "./Recipe";
+
 const { DataTypes } = require("sequelize");
 
 const foreignKey = "categoryId";
 
-const RecipeCategory = sequelize.define(
+export const RecipeCategory = sequelize.define(
   "recipe_categories",
   {
     id: {
@@ -19,6 +20,5 @@ const RecipeCategory = sequelize.define(
   }
 );
 
-RecipeCategory.hasMany(Recipe, { as: "recipes", foreignKey });
-
-export default RecipeCategory;
+RecipeCategory.hasMany(Recipe, { as: "recipe_categories", foreignKey });
+Recipe.belongsTo(RecipeCategory, { as: "recipe_categories", foreignKey });

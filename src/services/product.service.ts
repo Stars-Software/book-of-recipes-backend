@@ -1,4 +1,4 @@
-import Product, { UserProduct } from "../models/Product";
+import  { Product, UserProduct } from "../models/User-Product";
 import { IProduct, IProductDBRecord } from "../types/product.type";
 import User from "../models/User";
 import { dataBaseUtils } from "../utils/database.util";
