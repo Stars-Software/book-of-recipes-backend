@@ -1,4 +1,4 @@
-import { Product } from "../models/User-Product";
+import Product from "../models/Product";
 import { Recipe } from "../models/Recipe";
 import { IRecipe, IRecipeDBRecord } from "../types/recipe.type";
 

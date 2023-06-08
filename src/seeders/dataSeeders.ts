@@ -1,6 +1,6 @@
-import { RecipeCategory } from "../models/Recipe-Category";
+import RecipeCategory from "../models/Recipe-Category";
 import { dataBaseUtils } from "../utils/database.util";
-import { ProductCategory } from "../models/Product-Category";
+import ProductCategory from "../models/Product-Category";
 
 const PRODUCT_CATEGORIES_PATH =
   "src/config/database/data/product-categories.json";

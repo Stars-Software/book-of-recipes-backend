@@ -1,8 +1,9 @@
-import  { Product, UserProduct } from "../models/User-Product";
+
 import { IProduct, IProductDBRecord } from "../types/product.type";
 import User from "../models/User";
 import { dataBaseUtils } from "../utils/database.util";
 import { DB_FORMAT } from "../config/database/responseOptions/product.options";
+import Product, { UserProduct } from "../models/Product";
 
 export class ProductService {
   static async create(

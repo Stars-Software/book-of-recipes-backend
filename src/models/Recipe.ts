@@ -1,5 +1,5 @@
 import { sequelize } from "../config/database/pool";
-import { RecipeCategory } from "./Recipe-Category";
+import RecipeCategory from "./Recipe-Category";
 const { DataTypes } = require("sequelize");
 
 export const Recipe = sequelize.define(

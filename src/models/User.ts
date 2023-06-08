@@ -1,10 +1,8 @@
 import { sequelize } from "../config/database/pool";
 import Token from "./Token";
 import Image from "./Image";
-
-import { dataBaseUtils } from "../utils/database.util";
-import { Product } from "./User-Product";
-import { ProductCategory } from "./Product-Category";
+import Product from "./Product";
+import ProductCategory from "./Product-Category";
 import { Recipe } from "./Recipe";
 
 const { DataTypes } = require("sequelize");

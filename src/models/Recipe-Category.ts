@@ -5,7 +5,7 @@ const { DataTypes } = require("sequelize");
 
 const foreignKey = "categoryId";
 
-export const RecipeCategory = sequelize.define(
+const RecipeCategory = sequelize.define(
   "recipe_categories",
   {
     id: {
@@ -20,5 +20,6 @@ export const RecipeCategory = sequelize.define(
   }
 );
 
-RecipeCategory.hasMany(Recipe, { as: "recipe_categories", foreignKey });
-Recipe.belongsTo(RecipeCategory, { as: "recipe_categories", foreignKey });
+RecipeCategory.hasMany(Recipe, { as: "recipes", foreignKey });
+
+export default RecipeCategory;
