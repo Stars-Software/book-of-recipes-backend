@@ -1,16 +1,17 @@
+import RecipeCategory from "../models/Recipe-Category";
 import Product from "../models/Product";
 import { Recipe } from "../models/Recipe";
 import { IRecipe, IRecipeDBRecord } from "../types/recipe.type";
 
 export class RecipeService {
   static async create(userId: string, data: any): Promise<any | null> {
-    const {products, ...rest } = data;
+    const { products, ...rest } = data;
     const recipe = await Recipe.create({ ...rest, userId });
     for (const { id, amount } of products) {
       const product = await Product.findByPk(id);
       await recipe.addProduct(product, { through: { amount } });
     }
-    return recipe
+    return recipe;
   }
 
   static async update(
@@ -27,7 +28,13 @@ export class RecipeService {
   }
 
   static async getAll(userId: string): Promise<IRecipeDBRecord[] | null> {
-    return await Recipe.findAll({ where: { userId } });
+    return await Recipe.findAll({
+      where: { userId },
+      include: [
+        { model: Product, through: { arguments: "amount" } },
+        RecipeCategory,
+      ],
+    });
   }
 
   static async getById(

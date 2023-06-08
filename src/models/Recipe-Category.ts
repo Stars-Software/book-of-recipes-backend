@@ -20,6 +20,7 @@ const RecipeCategory = sequelize.define(
   }
 );
 
-RecipeCategory.hasMany(Recipe, { as: "recipes", foreignKey });
+RecipeCategory.hasMany(Recipe, { foreignKey });
+Recipe.belongsTo(RecipeCategory, { foreignKey });
 
 export default RecipeCategory;
