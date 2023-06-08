@@ -10,7 +10,6 @@ export const responseHandler =
       }
       const { refreshToken } = value;
       if (refreshToken) res.cookie("refreshToken", value["refreshToken"]);
-      console.log(value)
       res.json(value);
     } catch (error) {
       next(error);

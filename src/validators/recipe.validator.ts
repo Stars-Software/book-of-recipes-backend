@@ -4,6 +4,7 @@ export const CreateRecipeSchema = Joi.object({
   title: Joi.string().trim().required(),
   description: Joi.string().trim().required(),
   private: Joi.boolean().required(),
+  categoryId: Joi.string().required(),
   products: Joi.any(),
 });
 

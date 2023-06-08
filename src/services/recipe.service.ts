@@ -7,7 +7,7 @@ export class RecipeService {
     const {products, ...rest } = data;
     const recipe = await Recipe.create({ ...rest, userId });
     for (const { id, amount } of products) {
-      const product = await Product.fidByPk(id);
+      const product = await Product.findByPk(id);
       await recipe.addProduct(product, { through: { amount } });
     }
     return recipe

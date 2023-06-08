@@ -14,7 +14,7 @@ import { IRecipeDBRecord } from "../../types/recipe.type";
 
 const recipeRouter: Router = Router();
 
-recipeRouter.use("", authenticate);
+recipeRouter.use("", authenticate, errorHandler);
 recipeRouter.get(
   "",
 
