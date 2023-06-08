@@ -1,4 +1,3 @@
-
 import { IProduct, IProductDBRecord } from "../types/product.type";
 import User from "../models/User";
 import { dataBaseUtils } from "../utils/database.util";
@@ -33,7 +32,8 @@ export class ProductService {
   }
 
   static async delete(userId: string, id: string) {
-    await Product.destroy({ where: { id, userId } });
+    await UserProduct.destroy({ where: { userId, productId: id } });
+    return await Product.destroy({ where: { id } });
   }
 
   static async getAll(userId: string, categoryId: string): Promise<any[]> {

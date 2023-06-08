@@ -11,7 +11,6 @@ export const CreateRecipeSchema = Joi.object({
 export const EditRecipeSchema = Joi.object({
   id: Joi.string().required(),
   title: Joi.string().trim().required(),
-  desription: Joi.string().trim().required(),
-  video: Joi.string().trim().required(),
+  description: Joi.string().trim().required(),
   products: Joi.any(),
 });

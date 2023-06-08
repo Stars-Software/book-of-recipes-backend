@@ -1,7 +1,8 @@
 import RecipeCategory from "../models/Recipe-Category";
-import Product from "../models/Product";
+import Product, { RecipeProduct } from "../models/Product";
 import { Recipe } from "../models/Recipe";
 import { IRecipe, IRecipeDBRecord } from "../types/recipe.type";
+import { CustomError } from "../utils/error.util";
 
 export class RecipeService {
   static async create(userId: string, data: any): Promise<any | null> {
@@ -17,9 +18,18 @@ export class RecipeService {
   static async update(
     userId: string,
     id: string,
-    data: IRecipe
+    data: any
   ): Promise<IRecipeDBRecord | null> {
-    await Recipe.update(data, { where: { id, userId } });
+    const { title, description, products } = data;
+    const recipe = await Recipe.findOne({ where: { id, userId } });
+    if (!recipe) {
+      throw new CustomError(409, "Permission denied");
+    }
+    await Recipe.update({ title, description }, { where: { id, userId } });
+    for (const item of products) {
+      const product = await Product.findByPk(item.id);
+      await recipe.addProduct(product, { through: { amount: item.amount } });
+    }
     return await RecipeService.getById(userId, id);
   }
 
@@ -31,7 +41,7 @@ export class RecipeService {
     return await Recipe.findAll({
       where: { userId },
       include: [
-        { model: Product, through: { arguments: "amount" } },
+        { model: Product, through: { attributes: ["amount"] } },
         RecipeCategory,
       ],
     });
@@ -41,6 +51,12 @@ export class RecipeService {
     userId: string,
     id: string
   ): Promise<IRecipeDBRecord | null> {
-    return await Recipe.findOne({ where: { id, userId } });
+    return await Recipe.findOne({
+      where: { id, userId },
+      include: [
+        { model: Product, through: { attributes: ["amount"] } },
+        RecipeCategory,
+      ],
+    });
   }
 }
