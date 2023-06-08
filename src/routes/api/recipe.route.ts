@@ -27,6 +27,13 @@ recipeRouter.post(
   responseHandler(RecipeController.create),
   errorHandler
 );
+
+recipeRouter.get(
+  "/check",
+  responseHandler(RecipeController.getAvaliable),
+  errorHandler
+);
+
 recipeRouter.use(
   "/:id",
   checkExistance<IRecipeDBRecord>("id", RecipeService.getById)
@@ -47,5 +54,6 @@ recipeRouter.delete(
   responseHandler(RecipeController.delete),
   errorHandler
 );
+
 
 export default recipeRouter;

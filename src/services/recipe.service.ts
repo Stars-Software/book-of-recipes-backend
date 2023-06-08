@@ -1,8 +1,10 @@
 import RecipeCategory from "../models/Recipe-Category";
-import Product, { RecipeProduct } from "../models/Product";
+import Product from "../models/Product";
 import { Recipe } from "../models/Recipe";
-import { IRecipe, IRecipeDBRecord } from "../types/recipe.type";
+import { IRecipeDBRecord } from "../types/recipe.type";
 import { CustomError } from "../utils/error.util";
+import { ProductService } from "./product.service";
+// import { productChecker, productsChecker } from "../utils/checkAvaliable";
 
 export class RecipeService {
   static async create(userId: string, data: any): Promise<any | null> {
@@ -58,5 +60,16 @@ export class RecipeService {
         RecipeCategory,
       ],
     });
+  }
+
+  static async getAvaliable(userId: string) {
+    // const recipes = await RecipeService.getAll(userId);
+    // const products = await ProductService.getAll(userId, "");
+    // const id = productsChecker.checkRecipe(
+    //   recipes,
+    //   products
+    // );
+    // if (!id) return [];
+    // return await RecipeService.getById(userId, id);
   }
 }

@@ -35,4 +35,8 @@ export class RecipeController {
     const todoId = params.id;
     return await RecipeService.delete(userId, todoId);
   }
+  static async getAvaliable(req: IRecipeRequest) {
+    const { userId } = req.user;
+    return await RecipeService.getAvaliable(userId)
+  }
 }
